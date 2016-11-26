@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE7BA"
+    android:stretchColumns="1">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFB90F"
+        android:id="@+id/item_toolbar">
+
+
+        <Button
+            android:id="@+id/edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:text="修改"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:fitsSystemWindows="true"
+            android:layout_gravity="end" />
+    </android.support.v7.widget.Toolbar>
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:text="姓名"/>
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:maxLines="1"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:inputType="number"
+            android:text="学号"/>
+        <EditText
+            android:id="@+id/id_edit_text"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:inputType="number"
+            android:maxLines="1"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:inputType="text"
+            android:text="性别"/>
+
+        <EditText
+            android:id="@+id/sex_edit_text"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:maxLines="1"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:text="年龄"/>
+        <EditText
+            android:id="@+id/age_edit_text"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:maxLines="1"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:text="成绩"/>
+        <EditText
+            android:id="@+id/score_edit_text"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:maxLines="1"/>
+    </TableRow>
+    <TableRow>
+        <Button
+            android:id="@+id/complete_button"
+            android:layout_height="wrap_content"
+            android:background="#FF7F00"
+            android:text="@string/complete_button_text"
+            android:textSize="20sp"/>
+    </TableRow>
+
+</TableLayout>

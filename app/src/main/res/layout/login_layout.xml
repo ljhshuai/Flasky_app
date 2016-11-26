@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/login_layout"
+    android:gravity="center_vertical"
+    android:background="#FFE7BA"
+    android:padding="10dp">
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/account_text_view"
+                android:layout_height="wrap_content"
+                android:text="@string/account_text_view"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/account_edit_text"
+                android:layout_height="wrap_content"
+                android:hint="@string/account_edit_text_hint"
+                android:textColor="#000000"
+                android:textSize="14sp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/password_text_view"
+                android:layout_height="wrap_content"
+                android:text="@string/password_text_view"
+                android:textColor="#000000" />
+
+            <EditText
+                android:id="@+id/password_edit_text"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </TableRow>
+
+        <TableRow>
+            <CheckBox
+                android:id="@+id/remeber_password_checkbox"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"/>
+
+            <TextView
+                android:id="@+id/remeber_password_text_view"
+                android:layout_height="match_parent"
+                android:text="@string/remeber_password_text_view"
+                android:textColor="#000000"
+                android:gravity="center_vertical"/>
+        </TableRow>
+    </TableLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sign_up_button"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:text="@string/sign_up_button"
+            android:background="#FF7F00" />
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="#FF7F00"
+            android:text="@string/login_button" />
+    </LinearLayout>
+</LinearLayout>
+
+
