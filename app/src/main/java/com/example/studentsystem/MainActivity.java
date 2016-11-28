@@ -13,6 +13,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -75,13 +76,13 @@ public class MainActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
-                (this,drawerLayout,toolbar,0,0);
+                (this, drawerLayout, toolbar, 0, 0);
         drawerLayout.addDrawerListener(toggle);//为抽屉滑出的监听添加触发器
         toggle.syncState();//加上同步
 
 
         studentAdapter = new StudentAdapter(
-             this, R.layout.item, studentList);
+                this, R.layout.item, studentList);
         listView.setAdapter(studentAdapter);
         initStudents();
         header = new View(MainActivity.this);
@@ -100,68 +101,50 @@ public class MainActivity extends BaseActivity {
         });
 
         View headerView = navigationView.getHeaderView(0);
-         headerView.findViewById(R.id.head_view).setOnClickListener
+        headerView.findViewById(R.id.head_view).setOnClickListener
                 (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "点击了头布局(图片)",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this, "点击了头布局(图片)",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
         //导航页里菜单项的单击事件
         navigationView.setNavigationItemSelectedListener
                 (new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.menu1:
-                        Intent intent1= new Intent();
-                        intent1.setAction("android.intent.action.VIEW");
-                        Uri url = Uri.parse("http://123.207.19.103/");
-                        intent1.setData(url);
-                        startActivity(intent1);
-                        break;
-                    case R.id.menu2:
-                        break;
-                    case R.id.menu3:
-                        Intent intent3= new Intent();
-                        intent3.setAction("android.intent.action.VIEW");
-                        Uri url2 = Uri.parse("https://github.com/huster1446");
-                        intent3.setData(url2);
-                        startActivity(intent3);
-                        break;
-                    case R.id.menu4:
-                        Intent intent4 = new Intent(MainActivity.this, LoginActivity.class);
-                        intent4.putExtra(CHANGE_ACCOUNT, "" + true);
-                        startActivity(intent4);
-                    default:
-                        break;
-                }
-                drawerLayout.closeDrawers();
-                return true;
-            }
-        });
-
-        listView.setOnTouchListener
-                (new View.OnTouchListener() {
-                    float downX = 0;
                     @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                downX = event.getX();
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.menu1:
+                                Intent intent1 = new Intent();
+                                intent1.setAction("android.intent.action.VIEW");
+                                Uri url = Uri.parse("http://123.207.19.103/");
+                                intent1.setData(url);
+                                startActivity(intent1);
                                 break;
-                            case MotionEvent.ACTION_MOVE:
-                                if (event.getX() > downX + 20) {
-                                    drawerLayout.openDrawer(navigationView);
-                                }
+                            case R.id.menu2:
+                                Intent intent2 = new Intent(MainActivity.this, FeedbackActivity.class);
+                                startActivity(intent2);
                                 break;
+                            case R.id.menu3:
+                                Intent intent3 = new Intent();
+                                intent3.setAction("android.intent.action.VIEW");
+                                Uri url2 = Uri.parse("https://github.com/huster1446/StudentSystem");
+                                intent3.setData(url2);
+                                startActivity(intent3);
+                                break;
+                            case R.id.menu4:
+                                Intent intent4 = new Intent(MainActivity.this, LoginActivity.class);
+                                intent4.putExtra(CHANGE_ACCOUNT, "" + true);
+                                startActivity(intent4);
                             default:
                                 break;
                         }
-                        return false;
+                        drawerLayout.closeDrawers();
+                        return true;
                     }
                 });
+
     }
 
 
@@ -243,11 +226,15 @@ public class MainActivity extends BaseActivity {
         //下面两个表示滑动的方向，大于0表示向下滑动，小于0表示向上滑动，等于0表示未滑动
         int lastDirection = 0;
         int currentDirection = 0;
+        float down_x = 0f;
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    down_x = event.getX();
+                    Log.d("test", "down_x  " + down_x);
                     lastY = event.getY();
                     currentY = event.getY();
                     currentDirection = 0;
@@ -260,6 +247,7 @@ public class MainActivity extends BaseActivity {
                             currentY = tmpCurrentY;
                             currentDirection = (int) (currentY - lastY);
                             if (lastDirection != currentDirection) {
+
                                 //如果与上次方向不同，则执行显/隐动画
                                 if (currentDirection < 0) {
                                     animateHide();

@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.TimerTask;
 
 /**
  * Created by ljh on 2016/11/10.
@@ -25,6 +28,13 @@ public class LoginActivity extends BaseActivity {
     private CheckBox rememberPasswordCheckBox;
     public static String CHANGE_ACCOUNT = "" + false;
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == android.view.KeyEvent.KEYCODE_BACK ) {
+            ActivityCollector.finishAll();
+        }
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

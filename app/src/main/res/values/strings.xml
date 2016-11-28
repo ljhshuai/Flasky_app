@@ -10,4 +10,5 @@
     <string name="complete_button_text">确定</string>
     <string name="search_hint">输入关键字查询</string>
     <string name="search_back">返回</string>
+    <string name="feedback_button_text">提交</string>
 </resources>

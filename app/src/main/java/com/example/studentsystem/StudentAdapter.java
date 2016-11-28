@@ -149,8 +149,6 @@ public class StudentAdapter extends ArrayAdapter<Student> {
                                             ((HorizontalScrollView) view)
                                                     .fullScroll(View.FOCUS_LEFT);
                                             lastPosition = -1;
-                                        } else {
-                                            drawerLayout.openDrawer(navigationView);
                                         }
                                     } else {
                                         ((HorizontalScrollView)view)

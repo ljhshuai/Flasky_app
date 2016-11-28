@@ -4,18 +4,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.Toast;
 
 import static com.example.studentsystem.MainActivity.*;
-import static com.example.studentsystem.SearchActivity.search;
-import static com.example.studentsystem.SearchActivity.searchStudentAdapter;
-import static com.example.studentsystem.SearchActivity.searchStudentList;
+import static com.example.studentsystem.SearchActivity.*;
+
 
 
 
@@ -45,7 +42,6 @@ public class ItemActivity extends BaseActivity {
 
         itemToolbar = (Toolbar) findViewById(R.id.item_toolbar);
         itemToolbar.setTitle("新建");
-
         setSupportActionBar(itemToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -109,42 +105,52 @@ public class ItemActivity extends BaseActivity {
         completButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("test", "11111");
                 String name = nameEditText.getText().toString();
                 String id = idEditText.getText().toString();
-                Log.d("test", "5555");
                 String sex = sexEditText.getText().toString();
-                Log.d("test", "666");
-                int age = Integer.parseInt(ageEditText.getText().toString());
-                Log.d("test", "777");
-                float score = Float.parseFloat(scoreEditText.getText().toString());
-
-                Log.d("test", "333331");
-                ContentValues values = new ContentValues();
-                values.put("name", name);
-                values.put("id", id);
-                values.put("sex", sex);
-                values.put("age", age);
-                values.put("score", score);
-                Log.d("test", "33322112");
-                if (update) {
-                    Log.d("test", "1w2221");
-                    if(search) {
-                        searchStudentList.set(position, new Student(name, id, sex, age, score));
-                        searchStudentAdapter.notifyDataSetChanged();
-                    } else {
-                        studentList.set(position, new Student(name, id, sex, age ,score));
-                        studentAdapter.notifyDataSetChanged();
+                int age = 0;
+                float score = 0;
+                boolean exception = false;
+                try {
+                    age = Integer.parseInt(ageEditText.getText().toString());
+                    score = Float.parseFloat(scoreEditText.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(ItemActivity.this, "请输入正确的数据", Toast.LENGTH_SHORT).show();
+                    exception = true;
+                } finally {
+                    if (!exception) {
+                        if (("男".equals(sex)||"女".equals(sex)) && (!name.isEmpty()) && (!id.isEmpty())
+                                && age>0 && age<40 && score>0 && score <=150) {
+                            ContentValues values = new ContentValues();
+                            values.put("name", name);
+                            values.put("id", id);
+                            values.put("sex", sex);
+                            values.put("age", age);
+                            values.put("score", score);
+                            if (update) {
+                                if (search) {
+                                    searchStudentList.set(position, new Student(name, id, sex, age, score));
+                                    searchStudentAdapter.notifyDataSetChanged();
+                                } else {
+                                    studentList.set(position, new Student(name, id, sex, age, score));
+                                    studentAdapter.notifyDataSetChanged();
+                                }
+                                db.update("Student", values, "id = ?", new String[]{primaryKey});
+                            } else {
+                                studentList.add(new Student(name, id, sex, age, score));
+                                db.insert("Student", null, values);
+                            }
+                            values.clear();
+                            onBackPressed();
+                        } else {
+                            Toast.makeText(ItemActivity.this, "请输入正确的数据", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    db.update("Student", values, "id = ?", new String[] {primaryKey});
-                } else {
-                    Log.d("test", "add");
-                    studentList.add(new Student(name, id, sex, age ,score));
-                    db.insert("Student", null, values);
                 }
-                values.clear();
 
-                onBackPressed();
+
+
             }
         });
 
