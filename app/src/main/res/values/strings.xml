@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StudentSystem</string>
+    <string name="app_name">Flasky</string>
     <string name="account_text_view">账号</string>
     <string name="account_edit_text_hint">邮箱</string>
     <string name="password_text_view">密码</string>

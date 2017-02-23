@@ -13,9 +13,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_STUDENT = "create table Student" +
             "(  name text, " +
             "id text primary key," +
-            "sex text," +
-            "age integer, " +
-            "score real)";
+            "cls text," +
+            "addr text, " +
+            "phone text)";
 
     private Context mContext;
 

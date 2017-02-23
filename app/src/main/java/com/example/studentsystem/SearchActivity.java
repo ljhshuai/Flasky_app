@@ -24,7 +24,7 @@ import static com.example.studentsystem.MainActivity.db;
 /**
  * Created by ljh on 2016/11/22.
  */
-
+//搜索学生的活动
 public class SearchActivity extends BaseActivity {
     private EditText searchEditText;
     private ListView searchListView;
@@ -37,12 +37,13 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.search_layout);
+        //获得组件
         searchEditText= (EditText)  findViewById(R.id.search_edit_text);
         searchListView = (ListView) findViewById(R.id.search_list_view);
         searchBackButton = (Button) findViewById(R.id.search_back_button);
-        search = true;
+        search = true;  //标志是由SearchActivity进入其他活动的
+
         searchStudentList = new ArrayList<Student>();
         searchStudentAdapter = new StudentAdapter(this, R.layout.item, searchStudentList);
         searchListView.setAdapter(searchStudentAdapter);
@@ -54,10 +55,14 @@ public class SearchActivity extends BaseActivity {
                     ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                             getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
+                    //获得输入的查询关键字
                     searchWord = searchEditText.getText().toString().trim();
+                    //清空搜索框
                     searchEditText.setText("");
+                    //清空学生列表并刷新
                     searchStudentList.clear();
                     searchStudentAdapter.notifyDataSetChanged();
+                    //查询数据
                     Cursor cursor = db.query(
                             "Student", null, "id like ? or name like ? ",
                             new String[]{"%" + searchWord + "%" ,"%" + searchWord + "%"}, null, null , null);
@@ -65,19 +70,23 @@ public class SearchActivity extends BaseActivity {
                         do {
                             String id = cursor.getString(cursor.getColumnIndex("id"));
                             String name = cursor.getString(cursor.getColumnIndex("name"));
-                            String sex = cursor.getString(cursor.getColumnIndex("sex"));
-                            int age = cursor.getInt(cursor.getColumnIndex("age"));
-                            float score = cursor.getFloat(cursor.getColumnIndex("score"));
-                            searchStudentList.add(new Student(name, id, sex, age, score));
+                            String cls = cursor.getString(cursor.getColumnIndex("cls"));
+                            String addr = cursor.getString(cursor.getColumnIndex("addr"));
+                            String phone = cursor.getString(cursor.getColumnIndex("phone"));
+                            //将搜索结果写入列表并更新listview
+                            searchStudentList.add(new Student(name, id, cls, addr, phone));
                             searchStudentAdapter.notifyDataSetChanged();
                         } while (cursor.moveToNext());
                     }
                     cursor.close();
+                    if (searchStudentList.size() == 0) {
+                       Toast.makeText(SearchActivity.this, "没有相关数据", Toast.LENGTH_SHORT).show();
                     }
+                }
                 return false;
             }
         });
-
+        //退出活动则先更改标志再退出
         searchBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +96,7 @@ public class SearchActivity extends BaseActivity {
         });
     }
 
+    //由其他活动启动该活动的接口
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, SearchActivity.class);
         context.startActivity(intent);

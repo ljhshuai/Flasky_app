@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by ljh on 2016/11/10.
  */
-
+//活动控制类
 public class ActivityCollector extends Activity {
     public static List<Activity> activities = new ArrayList<Activity>();
 
